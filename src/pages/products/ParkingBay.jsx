@@ -31,10 +31,10 @@ export default function ParkingBay() {
 
   return (
     <>
-      <section className="section" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', background: 'linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%)', padding: '40px 0' }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '48px', flexWrap: 'wrap', paddingLeft: '24px', paddingRight: '24px' }}>
+      <section className="section product-hero-section" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', background: 'linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%)', padding: '40px 0' }}>
+        <div className="container product-hero" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '48px', flexWrap: 'wrap', paddingLeft: '24px', paddingRight: '24px' }}>
           
-          <div style={{ flex: '1', minWidth: '350px', maxWidth: '600px' }}>
+          <div className="product-hero-text" style={{ flex: '1', minWidth: '350px', maxWidth: '600px' }}>
             {solution.tagline && (
               <span style={{ fontSize: '14px', fontWeight: '800', color: '#01875f', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '4px', display: 'block' }}>
                 {solution.tagline}
@@ -57,7 +57,7 @@ export default function ParkingBay() {
             </div>
           </div>
 
-          <div style={{ flex: '1', minWidth: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+          <div className="product-hero-media" style={{ flex: '1', minWidth: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
             <img 
               src="/parking/ParkingBay.png" 
               alt="ParkingBay App" 
@@ -77,7 +77,7 @@ export default function ParkingBay() {
         </div>
       </section>
 
-      <section className="section" style={{ padding: '64px 0', background: '#fff' }}>
+      <section className="section product-info-section" style={{ padding: '64px 0', background: '#fff' }}>
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', paddingLeft: '24px' }}>
           
           <div style={{ display: 'flex', gap: '64px', alignItems: 'center', flexWrap: 'wrap' }}>

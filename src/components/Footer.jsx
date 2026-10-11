@@ -8,18 +8,18 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer style={{ background: '#0a0a0a', color: '#fff', paddingTop: '80px', fontFamily: 'sans-serif', borderTop: '1px solid #1a1a1a' }}>
+    <footer className="site-footer" style={{ background: '#0a0a0a', color: '#fff', paddingTop: '80px', fontFamily: 'sans-serif', borderTop: '1px solid #1a1a1a' }}>
       <div className="container">
         
 
         {/* Links Section */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '48px', maxWidth: '900px', margin: '0 auto 80px auto' }}>
-          <div>
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '24px' }}>
+        <div className="footer-links" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '48px', maxWidth: '900px', margin: '0 auto 80px auto' }}>
+          <div className="footer-col footer-col-brand">
+            <Link to="/" className="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '24px' }}>
               <img src={logoIcon} alt="Logo" style={{ height: '32px', width: 'auto' }} />
               <span style={{ fontSize: '20px', fontWeight: 'bold', color: '#fff', letterSpacing: '-0.5px' }}>{company.name}</span>
             </Link>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <ul className="footer-nav" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <li><Link to="/about" onMouseEnter={(e) => e.target.style.color = '#aa3bff'} onMouseLeave={(e) => e.target.style.color = '#aaa'} style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>About Us</Link></li>
               <li><Link to="/services" onMouseEnter={(e) => e.target.style.color = '#aa3bff'} onMouseLeave={(e) => e.target.style.color = '#aaa'} style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Services</Link></li>
               <li>
@@ -44,7 +44,7 @@ export default function Footer() {
           </div>
 
 
-          <div>
+          <div className="footer-col footer-card">
             <h4 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '24px', color: '#fff' }}>Utilities</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <li><Link to="/privacy" onMouseEnter={(e) => e.target.style.color = '#aa3bff'} onMouseLeave={(e) => e.target.style.color = '#aaa'} style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Privacy Policy</Link></li>
@@ -54,7 +54,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="footer-col footer-card">
             <h4 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '24px', color: '#fff' }}>Contact Us</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <li style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -84,7 +84,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Section */}
-      <div style={{ borderTop: '1px solid #1a1a1a', paddingTop: '32px' }}>
+      <div className="footer-copy" style={{ borderTop: '1px solid #1a1a1a', paddingTop: '32px' }}>
         <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '20px' }}>
           <p style={{ color: '#aaa', margin: 0, fontSize: '14px', textAlign: 'center' }}>
             Designed by <span style={{ color: '#fff', fontWeight: 'bold' }}>{company.name}</span> Powered by <span style={{ color: '#fff', fontWeight: 'bold' }}>DevlaneCorp</span> &copy; {year}

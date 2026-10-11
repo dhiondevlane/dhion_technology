@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { company, nav } from '../data/content'
 import logoIcon from '../assets/logo-icon.png'
@@ -50,9 +50,17 @@ function NavItem({ item, onNavigate }) {
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="navbar">
+    <header className={`navbar${scrolled || mobileOpen ? ' scrolled' : ''}`}>
       <div className="navbar-inner">
         <NavLink to="/" className="brand" onClick={() => setMobileOpen(false)}>
           <img src={logoIcon} alt="" className="brand-mark" />

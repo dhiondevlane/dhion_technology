@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -15,11 +15,30 @@ export default function About() {
   })
   // Translates the container to the left as user scrolls down
   // Reduced from -65% to -48% to remove the extra empty space at the end of the track
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-48%"])
+  const trackRef = useRef(null)
+  // On phones, slide exactly far enough to bring the last card fully into view
+  const [mobileDistance, setMobileDistance] = useState(null)
+
+  useEffect(() => {
+    const measure = () => {
+      const track = trackRef.current
+      if (!track || window.innerWidth > 600) return setMobileDistance(null)
+      setMobileDistance(Math.max(0, track.scrollWidth - window.innerWidth))
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
+
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    mobileDistance === null ? ["0%", "-48%"] : [0, -mobileDistance]
+  )
 
   return (
     <>
-      <section className="section" style={{ padding: '40px 0 80px', textAlign: 'center' }}>
+      <section className="section about-intro" style={{ padding: '40px 0 80px', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: '960px', margin: '0 auto' }}>
           <h1 style={{ fontSize: '64px', fontWeight: 'bold', color: '#111', marginBottom: '24px', letterSpacing: '-1px' }}>
             About Us
@@ -27,7 +46,7 @@ export default function About() {
           <p style={{ fontSize: '18px', color: '#444', lineHeight: '1.7', marginBottom: '40px' }}>
             <strong>Dhion Technologies</strong> is an IT Solutions &amp; Software Consultancy focused on developing customized digital solutions for businesses, organizations, and entrepreneurs. We work closely with our clients to understand their existing workflow, identify operational challenges, and build technology that fits their actual requirements. Whether you need a complete business platform, a mobile application, a backend system, an automation solution, or a specialized dashboard, we take your idea from concept to deployment.
           </p>
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+          <div className="about-intro-actions" style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
             <Link to="/services" style={{ background: '#111', color: '#fff', padding: '14px 32px', borderRadius: '4px', fontWeight: '500', textDecoration: 'none', fontSize: '15px' }}>
               Our Services
             </Link>
@@ -39,8 +58,8 @@ export default function About() {
       </section>
 
       {/* Horizontal Scroll Section */}
-      <section ref={targetRef} style={{ height: '300vh', background: '#FFFFFF' }}>
-        <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', overflow: 'hidden' }}>
+      <section ref={targetRef} className="about-scroll" style={{ height: '300vh', background: '#FFFFFF' }}>
+        <div className="about-scroll-panel" style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', overflow: 'hidden' }}>
           
           <div className="container" style={{ marginBottom: '40px' }}>
             <div className="section-head center">
@@ -50,9 +69,9 @@ export default function About() {
           </div>
           
           {/* Scrolling Track */}
-          <motion.div style={{ x, display: 'flex', gap: '24px', padding: '0 5vw', width: 'max-content' }}>
+          <motion.div ref={trackRef} className="about-track" style={{ x, display: 'flex', gap: '24px', padding: '0 5vw', width: 'max-content' }}>
             {whyChooseUs.map((item) => (
-              <div className="card" key={item.title} style={{ 
+              <div className="card about-track-card" key={item.title} style={{ 
                 width: '380px', 
                 flexShrink: 0, 
                 background: '#FFFFFF',
@@ -91,8 +110,8 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section" style={{ padding: '20px 0 60px' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'center' }}>
+      <section className="section about-who" style={{ padding: '20px 0 60px' }}>
+        <div className="container about-who-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'center' }}>
           
           {/* Left Image Side */}
           <div style={{ position: 'relative' }}>

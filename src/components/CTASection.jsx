@@ -6,7 +6,7 @@ export default function CTASection({
   primary = { label: 'Connect With Us', to: '/contact' },
 }) {
   return (
-    <section className="section" style={{ padding: '60px 0', background: '#fff' }}>
+    <section className="section cta-section" style={{ padding: '60px 0', background: '#fff' }}>
       <div className="container">
         <div style={{
           position: 'relative',

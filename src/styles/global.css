@@ -176,16 +176,39 @@
 .divider-with-badge::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid var(--border);
+  height: 1px;
+}
+.divider-with-badge::before {
+  background: linear-gradient(90deg, transparent, #c9c6cf 40%, #b3afbb);
+}
+.divider-with-badge::after {
+  background: linear-gradient(90deg, #b3afbb, #c9c6cf 60%, transparent);
 }
 .divider-with-badge span {
-  padding: 8px 16px;
-  color: var(--text);
-  background: var(--accent-bg);
-  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  color: var(--text-h);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.2px;
   margin: 0 16px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  /* Soft purple fill + gradient border */
+  background:
+    linear-gradient(135deg, #faf5ff, #f3e8ff) padding-box,
+    linear-gradient(135deg, #c084fc, #aa3bff 50%, #7c3aed) border-box;
+  box-shadow: 0 4px 14px rgba(170, 59, 255, 0.15);
+}
+.divider-with-badge span::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(170, 59, 255, 0.2);
 }
 
 /* Logo Carousel */
@@ -304,6 +327,126 @@
   .grid-3,
   .grid-4 {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Home: hero */
+.home-hero {
+  padding-bottom: 16px;
+}
+
+.partners-section .divider-with-badge {
+  margin-top: 24px;
+}
+
+@media (max-width: 600px) {
+  .home-hero {
+    padding-bottom: 8px;
+  }
+
+  .partners-section .divider-with-badge {
+    margin-top: 16px;
+  }
+}
+
+/* Home: Why Choose Us (mobile) */
+@media (max-width: 900px) {
+  .why-choose-section {
+    padding-top: 32px !important;
+  }
+
+  .why-choose .left-content h2 {
+    margin-top: 4px;
+  }
+
+  .why-choose .left-content > span {
+    margin-bottom: 0 !important;
+  }
+
+  /* Heading scrolls normally instead of staying pinned under the cards */
+  .why-choose .left-content {
+    position: static !important;
+  }
+
+  .why-choose .right-content {
+    gap: 24px !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Cards stack just below the navbar, each offset slightly */
+  .why-choose .why-card {
+    top: calc(80px + var(--i) * 16px) !important;
+    padding: 24px !important;
+  }
+}
+
+/* Home: gap between Why Choose Us and the CTA (phones only) */
+@media (max-width: 600px) {
+  .why-choose-section {
+    padding-bottom: 48px !important;
+  }
+
+  .why-choose-section + .cta-section {
+    padding-top: 32px !important;
+  }
+}
+
+/* Home: What We Do */
+.what-we-do-title {
+  font-size: 32px;
+}
+
+.what-we-do-split {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.what-we-do-image img {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 30px 8px 30px 8px;
+}
+
+@media (max-width: 900px) {
+  .what-we-do-split {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .what-we-do-image img {
+    height: 240px;
+  }
+
+  /* Keep the 2x2 card layout so the scroll animation still lines up */
+  .grid-2.what-we-do-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .what-we-do-title {
+    font-size: 24px;
+  }
+
+  .what-we-do-image img {
+    height: 200px;
+    border-radius: 20px 6px 20px 6px;
+  }
+
+  .what-we-do-cards .stat-card {
+    padding: 12px !important;
+  }
+
+  .what-we-do-cards .stat-card h3 {
+    font-size: 13px !important;
+  }
+
+  .what-we-do-actions {
+    justify-content: center;
   }
 }
 
@@ -446,9 +589,15 @@
   position: sticky;
   top: 0;
   z-index: 40;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navbar.scrolled {
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  border-bottom-color: var(--border);
 }
 
 .navbar-inner {
@@ -691,4 +840,350 @@
 /* utility */
 .text-center {
   text-align: center;
+}
+
+/* Footer: accent bar before column headings (all screens) */
+.site-footer .footer-card h4 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 0;
+}
+
+.site-footer .footer-card h4::before {
+  content: '';
+  width: 4px;
+  height: 1em;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #c084fc, #7c3aed);
+}
+
+/* Footer (mobile only) */
+@media (max-width: 600px) {
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+    padding-top: 48px !important;
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(170, 59, 255, 0.22), transparent 70%),
+      #0a0a0a !important;
+    border-top: 1px solid rgba(170, 59, 255, 0.35) !important;
+  }
+
+  .site-footer .footer-links {
+    flex-direction: column;
+    gap: 16px !important;
+    margin-bottom: 32px !important;
+  }
+
+  /* Brand: centered logo with nav links as pills */
+  .site-footer .footer-col-brand {
+    text-align: center;
+    padding-bottom: 8px;
+  }
+
+  .site-footer .footer-logo {
+    justify-content: center;
+    margin-bottom: 20px !important;
+  }
+
+  .site-footer .footer-nav {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px !important;
+  }
+
+  .site-footer .footer-nav > li {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #151515;
+    border: 1px solid #262626;
+  }
+
+  .site-footer .footer-nav > li:has(ul) {
+    flex-basis: 100%;
+    border-radius: 16px;
+  }
+
+  .site-footer .footer-nav > li > button {
+    margin: 0 auto;
+  }
+
+  .site-footer .footer-nav ul {
+    padding: 12px 0 4px !important;
+    flex-direction: row !important;
+    justify-content: center;
+    gap: 16px !important;
+  }
+
+  /* Utilities & Contact as glass cards */
+  .site-footer .footer-card {
+    padding: 20px;
+    border-radius: 16px;
+    background: linear-gradient(160deg, #161616, #0f0f0f);
+    border: 1px solid #222;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .site-footer .footer-card h4 {
+    font-size: 16px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .site-footer .footer-card ul {
+    gap: 12px !important;
+  }
+
+  .site-footer .footer-card a,
+  .site-footer .footer-card span {
+    word-break: break-word;
+  }
+
+  /* Bottom bar */
+  .site-footer .footer-copy {
+    padding: 20px 0 4px !important;
+    border-top-color: #1f1f1f !important;
+  }
+
+  .site-footer .footer-copy p {
+    font-size: 12px !important;
+    line-height: 1.6;
+  }
+}
+
+/* Smaller page titles on phones (overrides inline font sizes) */
+@media (max-width: 600px) {
+  main h1 {
+    font-size: 30px !important;
+    line-height: 1.15 !important;
+  }
+
+  main h2 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Only shrink the large card titles; small ones keep their size */
+  main h3[style*="font-size: 22px"],
+  main h3[style*="font-size: 24px"],
+  main h3[style*="font-size: 26px"],
+  main h3[style*="font-size: 28px"] {
+    font-size: 19px !important;
+  }
+}
+
+/* About: remove top gap above the page title (phones only) */
+@media (max-width: 600px) {
+  .about-intro {
+    padding-top: 16px !important;
+  }
+
+  .about-intro h1 {
+    margin-top: 0;
+  }
+
+  .about-intro {
+    padding-bottom: 24px !important;
+  }
+
+  .about-intro p {
+    margin-bottom: 28px !important;
+  }
+
+  /* Stacked, full-width buttons */
+  .about-intro-actions {
+    flex-direction: column;
+    gap: 12px !important;
+  }
+
+  .about-intro-actions > a,
+  .about-intro-actions > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 20px !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    font-family: inherit;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+
+  .about-intro-actions > a {
+    background: linear-gradient(135deg, #1a1a1a, #000) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .about-intro-actions > a::after {
+    content: '→';
+    font-size: 17px;
+    line-height: 1;
+  }
+
+  .about-intro-actions > button {
+    background: linear-gradient(#fff, #fff) padding-box,
+      linear-gradient(135deg, #c084fc, #7c3aed) border-box !important;
+    border: 1.5px solid transparent !important;
+    color: #6d28d9 !important;
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.12);
+  }
+
+  .about-intro-actions > a:active,
+  .about-intro-actions > button:active {
+    transform: scale(0.98);
+  }
+
+  /* Why Choose Us cards sized to fit the screen */
+  .about-track {
+    gap: 16px !important;
+    padding: 0 16px !important;
+  }
+
+  .about-track-card {
+    width: calc(100vw - 48px) !important;
+    padding: 24px !important;
+  }
+
+  .about-track-card h3 {
+    font-size: 18px !important;
+  }
+
+  .about-track-card p {
+    font-size: 14px !important;
+  }
+
+  /* Why Choose Us panel: start just below the navbar instead of centring in a full-height box */
+  .about-scroll-panel {
+    top: 60px !important;
+    height: calc(100vh - 60px) !important;
+    justify-content: flex-start !important;
+    padding-top: 16px;
+  }
+
+  /* Panel only as tall as its content, so no blank space after the cards */
+  .about-scroll-panel {
+    height: auto !important;
+    padding-bottom: 24px;
+  }
+
+  /* Who We Build For: image on top, text below */
+  .about-who {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .about-who + .cta-section {
+    padding-top: 16px !important;
+  }
+
+  .about-who-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+/* Services: tap-to-open accordion (phones only) */
+@media (max-width: 600px) {
+  /* Hero fills the screen below the navbar, content centred */
+  .services-hero {
+    min-height: calc(100svh - 60px) !important;
+    padding: 32px 0 !important;
+  }
+
+  .services-hero h1 {
+    margin-top: 0;
+  }
+
+  .service-row {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .service-row > div:first-child > div:first-child {
+    margin-bottom: 0 !important;
+  }
+
+  .service-details {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.35s ease, opacity 0.25s ease, margin-top 0.35s ease;
+  }
+
+  .service-details > div {
+    overflow: hidden;
+  }
+
+  .service-row.open .service-details {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 12px;
+  }
+
+  .service-toggle {
+    transition: transform 0.3s ease, background 0.2s ease !important;
+  }
+
+  .service-row.open .service-toggle {
+    transform: rotate(90deg);
+    background: #aa3bff !important;
+    border-color: #aa3bff !important;
+  }
+}
+
+/* Product pages: centre the hero logo (phones only) */
+@media (max-width: 600px) {
+  .product-hero {
+    gap: 24px !important;
+  }
+
+  .product-hero-text,
+  .product-hero-media {
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .product-hero-media {
+    justify-content: center !important;
+  }
+
+  .product-hero-media img {
+    width: 85% !important;
+    max-width: 320px !important;
+    margin: 0 auto;
+  }
+  /* Remove blank space between the logo and the app info */
+  .product-hero-section {
+    min-height: auto !important;
+    padding-bottom: 8px !important;
+  }
+
+  .product-info-section {
+    padding-top: 16px !important;
+  }
+}
+
+/* Process: remove gap between intro and timeline (phones only) */
+@media (max-width: 600px) {
+  .process-hero {
+    padding-bottom: 8px !important;
+  }
+
+  .process-steps {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .process-steps + .cta-section {
+    padding-top: 16px !important;
+  }
+
+  .process-timeline {
+    margin-top: 8px !important;
+  }
 }

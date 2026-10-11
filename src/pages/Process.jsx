@@ -35,7 +35,7 @@ export default function Process() {
 
   return (
     <>
-      <section className="page-hero" style={{ paddingBottom: '32px' }}>
+      <section className="page-hero process-hero" style={{ paddingBottom: '32px' }}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <span className="eyebrow" style={{ display: 'inline-block', padding: '6px 16px', background: '#f3e8ff', color: '#9333ea', borderRadius: '24px', fontSize: '13px', fontWeight: '600', letterSpacing: '1px', marginBottom: '16px' }}>How We Work</span>
           <h1 style={{ fontSize: '48px', fontWeight: '800', marginBottom: '16px', color: '#111' }}>
@@ -47,9 +47,9 @@ export default function Process() {
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: '16px' }}>
+      <section className="section process-steps" style={{ paddingTop: '16px' }}>
         <div className="container" style={{ maxWidth: '1100px' }}>
-          <div style={{ position: 'relative', paddingLeft: '40px', maxWidth: '720px', margin: '48px auto 0' }}>
+          <div className="process-timeline" style={{ position: 'relative', paddingLeft: '40px', maxWidth: '720px', margin: '48px auto 0' }}>
             
             {/* The vertical connecting line (Background gray line) */}
             <div style={{ position: 'absolute', left: '19px', top: '24px', bottom: '24px', width: '2px', background: '#eaeaea' }} />

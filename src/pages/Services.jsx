@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { services } from '../data/content'
@@ -5,10 +6,12 @@ import CTASection from '../components/CTASection'
 
 export default function Services() {
   usePageTitle('Services')
+  // Which service is expanded in the mobile accordion
+  const [openService, setOpenService] = useState(null)
 
   return (
     <>
-      <section className="section" style={{ minHeight: '90vh', display: 'flex', alignItems: 'center', background: '#fff' }}>
+      <section className="section services-hero" style={{ minHeight: '90vh', display: 'flex', alignItems: 'center', background: '#fff' }}>
         <div className="container">
           {/* Added paddingLeft to align with the cards below, and restricted width */}
           <div style={{ maxWidth: '900px', paddingLeft: '10px' }}>
@@ -48,6 +51,8 @@ export default function Services() {
             {services.map((service, i) => (
               <div
                 key={service.slug}
+                className={`service-row${openService === i ? ' open' : ''}`}
+                onClick={() => setOpenService((v) => (v === i ? null : i))}
                 style={{ 
                   display: 'flex', 
                   justifyContent: 'space-between', 
@@ -66,6 +71,8 @@ export default function Services() {
                     </h3>
                   </div>
                   
+                  <div className="service-details">
+                  <div>
                   <p style={{ fontSize: '14px', color: '#aaa', lineHeight: '1.6', margin: 0 }}>
                     {service.summary}
                   </p>
@@ -89,9 +96,11 @@ export default function Services() {
                     </div>
                   )}
                   {service.note && <p style={{ marginTop: '12px', fontSize: '12px', color: '#777', marginBottom: 0 }}>{service.note}</p>}
+                  </div>
+                  </div>
                 </div>
 
-                <div style={{ 
+                <div className="service-toggle" style={{ 
                   width: '40px', 
                   height: '40px', 
                   borderRadius: '50%', 

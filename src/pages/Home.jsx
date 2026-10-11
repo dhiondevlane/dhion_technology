@@ -58,10 +58,9 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero" style={{ minHeight: 'auto', paddingTop: '40px', paddingBottom: '64px', display: 'block' }}>
+      <section className="hero home-hero" style={{ minHeight: 'auto', paddingTop: '40px', display: 'block' }}>
         <div className="container hero-split">
           <div className="hero-content">
-            <span className="eyebrow" style={{background: 'var(--accent-bg)', color: 'var(--text-h)', padding: '6px 14px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', fontSize: '13px', textTransform: 'none', letterSpacing: 'normal', marginBottom: '16px'}}>Professional IT Services</span>
             <h1 style={{fontSize: '48px', lineHeight: '1.1', marginBottom: '16px', fontWeight: 'bold', color: '#111'}}>We build software around the way your business works.</h1>
             <p className="lead" style={{ fontSize: '16px', lineHeight: '1.6', color: 'var(--text)', marginBottom: '32px', maxWidth: '540px' }}>
               We transform your real-world requirements into custom software, mobile applications, and cloud solutions that help your business operate smarter, reduce manual work, and scale with confidence.
@@ -114,28 +113,28 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-alt" style={{ padding: '24px 0 40px' }}>
+      <section className="section section-alt what-we-do" style={{ padding: '24px 0 40px' }}>
         <div className="container">
           <div className="section-head center" style={{ marginBottom: '20px' }}>
             <span className="eyebrow" style={{background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--text-h)', padding: '4px 12px', borderRadius: '20px', display: 'inline-flex', alignItems: 'center', gap: '6px', textTransform: 'none', letterSpacing: 'normal', marginBottom: '8px'}}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
               What We Do
             </span>
-            <h2 style={{fontSize: '32px', fontWeight: 'bold', color: '#111', margin: '0 0 8px'}}>Build Smarter. Operate Better. Grow Faster.</h2>
+            <h2 className="what-we-do-title" style={{fontWeight: 'bold', color: '#111', margin: '0 0 8px'}}>Build Smarter. Operate Better. Grow Faster.</h2>
             <p style={{fontSize: '15px', color: 'var(--text)', margin: 0}}>End-to-end software development across web, mobile, backend, and cloud.</p>
           </div>
           
-          <div className="about-split" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '32px', alignItems: 'center' }}>
-            <div className="about-image">
-               <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=800&auto=format&fit=crop" alt="What We Do" style={{width: '100%', height: '300px', objectFit: 'cover', borderRadius: '30px 8px 30px 8px'}} />
+          <div className="about-split what-we-do-split">
+            <div className="about-image what-we-do-image">
+               <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=800&auto=format&fit=crop" alt="What We Do" />
             </div>
             <div className="about-content">
-              <div ref={gridRef} className="grid grid-2" style={{gap: '12px'}}>
+              <div ref={gridRef} className="grid grid-2 what-we-do-cards" style={{gap: '12px'}}>
                 {services.slice(0, 4).map((service, i) => (
                   <ServiceCard key={i} service={service} i={i} scrollYProgress={scrollYProgress} />
                 ))}
               </div>
-              <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '24px' }}>
+              <div className="what-we-do-actions" style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '24px' }}>
                 <Link to="/services" className="btn" style={{background: '#111', color: '#fff', padding: '10px 20px'}}>More About Us</Link>
                 {/* <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{width: '36px', height: '36px', borderRadius: '50%', background: 'var(--bg)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -166,12 +165,12 @@ export default function Home() {
             {solutions
               .filter((s) => s.slug !== 'custom')
               .map((solution, i) => (
-                <Link 
-                  to={`/solutions/${solution.slug}`} 
-                  key={solution.slug} 
-                  style={{ textDecoration: 'none', color: 'inherit', display: 'block', position: 'relative' }}
+                <div
+                  key={solution.slug}
+                  style={{ color: 'inherit', display: 'block', position: 'relative', cursor: 'default' }}
                   onMouseEnter={() => setHoveredSolution(i)}
                   onMouseLeave={() => setHoveredSolution(null)}
+                  onClick={() => setHoveredSolution((v) => (v === i ? null : i))}
                 >
                   <div style={{
                     display: 'flex', 
@@ -242,14 +241,14 @@ export default function Home() {
                       zIndex: 10
                     }}
                   />
-                </Link>
+                </div>
               ))}
           </div>
         </div>
       </section>
 
-      <section className="section" style={{ background: '#F8F9FA', padding: '100px 0' }}>
-        <div className="container grid grid-2" style={{ gap: '40px', alignItems: 'flex-start' }}>
+      <section className="section why-choose-section" style={{ background: '#F8F9FA', padding: '100px 0' }}>
+        <div className="container grid grid-2 why-choose" style={{ gap: '40px', alignItems: 'flex-start' }}>
           
           <div className="left-content" style={{ position: 'sticky', top: 'calc(50vh - 100px)' }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: '600', color: '#333', marginBottom: '16px' }}>
@@ -266,7 +265,7 @@ export default function Home() {
 
           <div className="right-content" style={{ display: 'flex', flexDirection: 'column', gap: '40vh', paddingBottom: '10vh' }}>
             {whyChooseUs.slice(0, 3).map((item, i) => (
-              <div key={item.title} style={{ 
+              <div key={item.title} className="why-card" style={{ '--i': i, 
                 position: 'sticky',
                 top: `calc(50vh - 120px + ${i * 90}px)`,
                 background: '#fff', 
