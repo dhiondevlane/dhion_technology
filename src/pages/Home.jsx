@@ -49,7 +49,28 @@ export default function Home() {
   usePageTitle()
 
   const gridRef = useRef(null)
-  const [hoveredSolution, setHoveredSolution] = useState(null)
+  const isTouchRef = useRef(false)
+  const [activeSolution, setActiveSolution] = useState(null)
+
+  const handleMouseEnter = (i) => {
+    if (isTouchRef.current) return
+    if (typeof window !== 'undefined' && window.matchMedia && !window.matchMedia('(hover: hover)').matches) return
+    setActiveSolution(i)
+  }
+
+  const handleMouseLeave = () => {
+    if (isTouchRef.current) return
+    if (typeof window !== 'undefined' && window.matchMedia && !window.matchMedia('(hover: hover)').matches) return
+    setActiveSolution(null)
+  }
+
+  const handleClick = (i) => {
+    setActiveSolution((prev) => (prev === i ? null : i))
+  }
+
+  const handleTouchStart = () => {
+    isTouchRef.current = true
+  }
   
   const { scrollYProgress } = useScroll({
     target: gridRef,
@@ -161,86 +182,89 @@ export default function Home() {
             <h2 style={{ color: '#fff', fontSize: '28px', marginTop: '16px', marginBottom: '8px' }}>Products Built From Real-World Systems</h2>
             <p style={{ color: '#aaa', maxWidth: '600px', margin: '0 auto', fontSize: '14px' }}>A look at what we've built when businesses bring us their actual workflows.</p>
           </div>
-          <div className="solutions-list" style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div className="solutions-list" style={{ maxWidth: '860px', margin: '0 auto' }}>
             {solutions
               .filter((s) => s.slug !== 'custom')
               .map((solution, i) => (
                 <div
                   key={solution.slug}
-                  style={{ color: 'inherit', display: 'block', position: 'relative', cursor: 'default' }}
-                  onMouseEnter={() => setHoveredSolution(i)}
-                  onMouseLeave={() => setHoveredSolution(null)}
-                  onClick={() => setHoveredSolution((v) => (v === i ? null : i))}
+                  className={`solutions-accordion-item ${activeSolution === i ? 'active' : ''}`}
+                  onTouchStart={handleTouchStart}
+                  onMouseEnter={() => handleMouseEnter(i)}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => handleClick(i)}
                 >
-                  <div style={{
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    padding: '16px 0', 
-                    borderBottom: '1px solid #333',
-                    transition: 'all 0.3s ease'
-                  }}>
-                    <span style={{ fontSize: '13px', color: '#666', marginRight: '24px', fontWeight: '500' }}>
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <div style={{ flex: 1 }}>
+                  <div className="solutions-accordion-header">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                      <span style={{ 
+                        fontSize: '13px', 
+                        color: activeSolution === i ? '#FF6B4A' : '#666', 
+                        fontWeight: '600',
+                        fontVariantNumeric: 'tabular-nums',
+                        transition: 'color 0.3s ease'
+                      }}>
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
                       <h3 style={{ 
-                        fontSize: '22px', margin: 0, fontWeight: '600', 
-                        color: hoveredSolution === i ? '#FF6B4A' : '#fff',
+                        fontSize: '22px', 
+                        margin: 0, 
+                        fontWeight: '600', 
+                        color: activeSolution === i ? '#FF6B4A' : '#fff',
                         transition: 'color 0.3s ease'
                       }}>
                         {solution.name}
                       </h3>
-                      <div style={{
-                        maxHeight: hoveredSolution === i ? '100px' : '0px',
-                        opacity: hoveredSolution === i ? 1 : 0,
-                        overflow: 'hidden',
-                        transition: 'all 0.4s ease'
-                      }}>
-                        <p style={{ fontSize: '13px', color: '#aaa', margin: '8px 0 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                          {solution.summary}
-                        </p>
-                      </div>
                     </div>
+
                     <div style={{ 
-                      width: '32px', height: '32px', 
+                      width: '34px', 
+                      height: '34px', 
                       borderRadius: '50%', 
-                      border: hoveredSolution === i ? '1px solid #FF6B4A' : '1px solid #444',
-                      background: hoveredSolution === i ? '#FF6B4A' : 'transparent',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', marginLeft: '16px',
+                      border: activeSolution === i ? '1px solid #FF6B4A' : '1px solid #444',
+                      background: activeSolution === i ? '#FF6B4A' : 'transparent',
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      color: '#fff', 
+                      flexShrink: 0,
+                      transform: activeSolution === i ? 'scale(1.05)' : 'scale(1)',
                       transition: 'all 0.3s ease'
                     }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                         <line x1="7" y1="17" x2="17" y2="7"></line>
                         <polyline points="7 7 17 7 17 17"></polyline>
                       </svg>
                     </div>
                   </div>
                   
-                  {/* Floating Image */}
-                  <img 
-                    src={
-                      i === 0 ? "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=400&q=80" : 
-                      i === 1 ? "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80" :
-                      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80"
-                    }
-                    alt={solution.name}
+                  {/* Expanded Body: Description & Well-Placed Preview Card */}
+                  <div 
+                    className="solutions-accordion-body"
                     style={{
-                      position: 'absolute',
-                      right: '15%',
-                      top: '50%',
-                      width: '200px',
-                      height: '140px',
-                      objectFit: 'cover',
-                      borderRadius: '12px',
-                      boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-                      pointerEvents: 'none',
-                      opacity: hoveredSolution === i ? 1 : 0,
-                      transform: hoveredSolution === i ? 'translateY(-50%) rotate(5deg) scale(1)' : 'translateY(-50%) rotate(10deg) scale(0.9)',
-                      transition: 'all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                      zIndex: 10
+                      maxHeight: activeSolution === i ? '600px' : '0px',
+                      opacity: activeSolution === i ? 1 : 0,
                     }}
-                  />
+                  >
+                    <div className="solutions-accordion-content">
+                      <div className="solutions-accordion-text">
+                        <p style={{ fontSize: '14px', color: '#aaa', margin: 0, lineHeight: '1.65' }}>
+                          {solution.summary}
+                        </p>
+                      </div>
+
+                      <div className="solutions-accordion-img-wrapper">
+                        <img 
+                          src={
+                            i === 0 ? "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=400&q=80" : 
+                            i === 1 ? "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80" :
+                            "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80"
+                          }
+                          alt={solution.name}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
           </div>

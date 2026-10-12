@@ -4,22 +4,47 @@ import { X, MessageSquare } from 'lucide-react'
 
 export default function ContactPopup() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isClosing, setIsClosing] = useState(false)
   const [status, setStatus] = useState('')
   
   const location = useLocation()
   const navigate = useNavigate()
 
+  const handleOpen = () => {
+    setIsClosing(false)
+    setIsOpen(true)
+  }
+
+  const handleClose = () => {
+    setIsClosing(true)
+    setTimeout(() => {
+      setIsOpen(false)
+      setIsClosing(false)
+      if (location.pathname === '/contact') {
+        navigate('/', { replace: true })
+      }
+    }, 280)
+  }
+
   useEffect(() => {
     if (location.pathname === '/contact') {
-      setIsOpen(true)
+      handleOpen()
     }
   }, [location.pathname])
 
   useEffect(() => {
-    const handleOpen = () => setIsOpen(true)
     window.addEventListener('open-contact-popup', handleOpen)
     return () => window.removeEventListener('open-contact-popup', handleOpen)
   }, [])
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') handleClose()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -41,7 +66,7 @@ export default function ContactPopup() {
         setStatus('success')
         e.target.reset()
         setTimeout(() => {
-          setIsOpen(false)
+          handleClose()
           setStatus('')
         }, 3000)
       } else {
@@ -66,10 +91,53 @@ export default function ContactPopup() {
               transform: translateY(-10px);
             }
           }
+
+          @keyframes popupFadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          @keyframes popupFadeOut {
+            from {
+              opacity: 1;
+            }
+            to {
+              opacity: 0;
+            }
+          }
+
+          @keyframes popupSlideFromBottom {
+            0% {
+              opacity: 0;
+              transform: translateY(100vh);
+            }
+            60% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes popupSlideToBottom {
+            0% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+            100% {
+              opacity: 0;
+              transform: translateY(100vh);
+            }
+          }
         `}
       </style>
       <button 
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpen}
         style={{
           position: 'fixed',
           bottom: '24px',
@@ -94,30 +162,47 @@ export default function ContactPopup() {
       </button>
 
       {isOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1001,
-          padding: '16px'
-        }}>
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '24px',
-            width: '100%',
-            maxWidth: '340px',
-            position: 'relative',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
-          }}>
+        <div 
+          onClick={(e) => {
+            if (e.target === e.currentTarget) handleClose()
+          }}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            backdropFilter: 'blur(3px)',
+            WebkitBackdropFilter: 'blur(3px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1001,
+            padding: '16px',
+            animation: isClosing ? 'popupFadeOut 0.28s ease forwards' : 'popupFadeIn 0.32s ease forwards',
+            willChange: 'opacity'
+          }}
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '16px',
+              padding: '24px',
+              width: '100%',
+              maxWidth: '340px',
+              position: 'relative',
+              boxShadow: '0 18px 45px rgba(0,0,0,0.25)',
+              animation: isClosing 
+                ? 'popupSlideToBottom 0.28s cubic-bezier(0.4, 0, 1, 1) forwards' 
+                : 'popupSlideFromBottom 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              willChange: 'transform, opacity'
+            }}
+          >
             <button 
-              onClick={() => setIsOpen(false)}
+              type="button"
+              onClick={handleClose}
               style={{
                 position: 'absolute',
                 top: '12px',
@@ -125,8 +210,13 @@ export default function ContactPopup() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                color: '#666'
+                color: '#666',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
+              aria-label="Close"
             >
               <X size={18} />
             </button>

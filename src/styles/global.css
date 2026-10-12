@@ -755,6 +755,123 @@
   }
 }
 
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 35;
+  cursor: pointer;
+  animation: navFadeIn 0.2s ease;
+}
+
+@keyframes navFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 961px) {
+  .nav-backdrop {
+    display: none;
+  }
+}
+
+/* Solutions Interactive Accordion */
+.solutions-accordion-item {
+  color: inherit;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  border-bottom: 1px solid #262626;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 6px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.solutions-accordion-item:hover,
+.solutions-accordion-item.active {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 107, 74, 0.25);
+}
+
+.solutions-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.solutions-accordion-body {
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.solutions-accordion-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding-top: 14px;
+  padding-left: 42px;
+}
+
+.solutions-accordion-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.solutions-accordion-img-wrapper {
+  flex-shrink: 0;
+  width: 220px;
+  height: 130px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.solutions-accordion-img-wrapper:hover {
+  transform: scale(1.03);
+}
+
+.solutions-accordion-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .solutions-accordion-item {
+    padding: 16px 14px;
+  }
+
+  .solutions-accordion-content {
+    flex-direction: column;
+    align-items: stretch;
+    padding-left: 0;
+    gap: 14px;
+  }
+
+  .solutions-accordion-text {
+    width: 100%;
+    flex: none;
+  }
+
+  .solutions-accordion-img-wrapper {
+    width: 100%;
+    height: 180px;
+    max-height: 200px;
+  }
+}
+
 /* Footer */
 .footer {
   border-top: 1px solid var(--border);
