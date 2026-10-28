@@ -30,16 +30,19 @@ jobs:
       - name: Build React Vite app
         run: npm run build
 
+     
       - name: Setup SSH
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.DHION_SSH_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY_B64: ${{ secrets.DHION_SSH_PRIVATE_KEY_B64 }}
           SERVER_HOST: ${{ secrets.DHION_SERVER_HOST }}
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          printf '%s' "$SSH_PRIVATE_KEY_B64" | base64 --decode > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null
           ssh-keyscan -H "$SERVER_HOST" >> ~/.ssh/known_hosts
+
 
       - name: Deploy to Dhion website
         env:
