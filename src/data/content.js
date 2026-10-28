@@ -15,7 +15,7 @@ export const nav = [
     to: '#',
     children: [
       { label: 'ParkingBay', to: '/parkingbay' },
-      { label: 'Home Delivery', to: '/homedelivery' },
+      { label: 'Hotel Home Delivery', to: '/homedelivery' },
     ],
   },
   { label: 'Our Process', to: '/process' },
