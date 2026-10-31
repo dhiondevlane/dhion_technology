@@ -6,6 +6,42 @@ import logoIcon from '../assets/logo-icon.png'
 function NavItem({ item, onNavigate }) {
   const [open, setOpen] = useState(false)
   const [forceClose, setForceClose] = useState(false)
+  const itemRef = useRef(null)
+  const location = useLocation()
+
+  const isChildActive = Boolean(item.children?.some((child) => location.pathname === child.to))
+
+  // Close dropdown whenever route changes
+  useEffect(() => {
+    setOpen(false)
+    setForceClose(true)
+  }, [location.pathname, location.search, location.hash])
+
+  // Close dropdown on outside click or escape
+  useEffect(() => {
+    if (!open) return
+
+    const handleClickOutside = (e) => {
+      if (itemRef.current && !itemRef.current.contains(e.target)) {
+        setOpen(false)
+        setForceClose(false)
+      }
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        setForceClose(true)
+      }
+    }
+
+    document.addEventListener('pointerdown', handleClickOutside)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [open])
 
   if (!item.children) {
     return (
@@ -18,28 +54,57 @@ function NavItem({ item, onNavigate }) {
   }
 
   return (
-    <li 
-      className={`${open ? 'dropdown-open' : ''} ${forceClose ? 'force-close' : ''}`}
+    <li
+      ref={itemRef}
+      className={`nav-item-dropdown ${open ? 'dropdown-open' : ''} ${forceClose ? 'force-close' : ''}`}
       onMouseEnter={() => setForceClose(false)}
+      onMouseLeave={() => {
+        setOpen(false)
+        setForceClose(false)
+      }}
     >
       <button
         type="button"
-        className="nav-link"
-        style={{ background: 'none', border: 'none', fontFamily: 'inherit', cursor: 'pointer', padding: '8px 0', color: 'inherit' }}
-        onClick={() => setOpen((v) => !v)}
+        className={`nav-link nav-dropdown-toggle ${open || isChildActive ? 'active' : ''}`}
+        onClick={() => {
+          setForceClose(false)
+          setOpen((v) => !v)
+        }}
         aria-expanded={open}
       >
-        {item.label} ▾
+        <span>{item.label}</span>
+        <svg
+          className="nav-chevron"
+          width="11"
+          height="11"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </button>
       <ul className="nav-dropdown">
         {item.children.map((child) => (
           <li key={child.to}>
-            <NavLink to={child.to} onClick={() => {
-              setOpen(false);
-              setForceClose(true);
-              if (onNavigate) onNavigate();
-            }}>
-              {child.label}
+            <NavLink
+              to={child.to}
+              className="nav-dropdown-item"
+              onClick={(e) => {
+                e.currentTarget.blur()
+                setOpen(false)
+                setForceClose(true)
+                if (onNavigate) onNavigate()
+              }}
+            >
+              <div className="nav-dropdown-title">{child.label}</div>
+              {child.description && (
+                <div className="nav-dropdown-desc">{child.description}</div>
+              )}
             </NavLink>
           </li>
         ))}

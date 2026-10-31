@@ -34,6 +34,7 @@ export default function Footer() {
                 </button>
                 {solutionsOpen && (
                   <ul style={{ listStyle: 'none', padding: '12px 0 0 12px', margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <li><Link to="/school-management" onMouseEnter={(e) => e.target.style.color = '#aa3bff'} onMouseLeave={(e) => e.target.style.color = '#888'} style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}>School Management</Link></li>
                     <li><Link to="/parkingbay" onMouseEnter={(e) => e.target.style.color = '#aa3bff'} onMouseLeave={(e) => e.target.style.color = '#888'} style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}>ParkingBay</Link></li>
                     <li><Link to="/homedelivery" onMouseEnter={(e) => e.target.style.color = '#aa3bff'} onMouseLeave={(e) => e.target.style.color = '#888'} style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}>Home Delivery</Link></li>
                   </ul>

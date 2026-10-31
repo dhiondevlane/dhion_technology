@@ -8,6 +8,7 @@ import Process from './pages/Process'
 import NotFound from './pages/NotFound'
 import ParkingBay from './pages/products/ParkingBay'
 import HomeDelivery from './pages/products/HomeDelivery'
+import SchoolManagement from './pages/products/SchoolManagement'
 import PrivacyPolicy from './pages/Privacy_Policy'
 import TermsService from './pages/Terms_Service'
 
@@ -34,6 +35,8 @@ function App() {
           <Route path="services" element={<Services />} />
           <Route path="parkingbay" element={<ParkingBay />} />
           <Route path="homedelivery" element={<HomeDelivery />} />
+          <Route path="school-management" element={<SchoolManagement />} />
+          <Route path="schoolmanagement" element={<SchoolManagement />} />
           <Route path="process" element={<Process />} />
           <Route path="privacy" element={<PrivacyPolicy />} />
           <Route path="terms" element={<TermsService />} />

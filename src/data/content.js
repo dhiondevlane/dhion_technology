@@ -14,8 +14,21 @@ export const nav = [
     label: 'Solutions',
     to: '#',
     children: [
-      { label: 'ParkingBay', to: '/parkingbay' },
-      { label: 'Food Delivery app', to: '/homedelivery' },
+      {
+        label: 'School Management',
+        to: '/school-management',
+        description: 'All-in-One School ERP & Smart Automation',
+      },
+      {
+        label: 'ParkingBay',
+        to: '/parkingbay',
+        description: 'Smart Parking Management System',
+      },
+      {
+        label: 'Food Delivery app',
+        to: '/homedelivery',
+        description: 'Multi-Role Food Ordering Platform',
+      },
     ],
   },
   { label: 'Our Process', to: '/process' },
@@ -131,6 +144,28 @@ export const services = [
 ]
 
 export const solutions = [
+  {
+    slug: 'school-management',
+    name: 'School Management',
+    tagline: 'Simple Pricing. Smarter School Management.',
+    summary:
+      'All-in-one school ERP platform with student strength pricing slabs, mobile apps, digital fees, virtual classrooms, and AI-powered operational assistance.',
+    intro:
+      'A comprehensive school management platform built for school owners, principals, teachers, students, and parents. Choose your student slab, choose a plan, and automate daily records, academics, and communications seamlessly.',
+    description:
+      'Available in Basic (Core ERP), Advanced (Android App & Payments), and Super Advanced (AI Assistant, Analytics & Voice Operations) tiers.',
+    capabilities: [
+      'Student & Staff Management',
+      'Attendance & Timetable',
+      'Exam & Result Management',
+      'Fee Collection & Receipts',
+      'Mobile Android Application',
+      'Virtual Classroom Integration',
+      'AI Assistant & Insights',
+      'Voice-Based Operations',
+      'Biometric & Transport Top-Ups',
+    ],
+  },
   {
     slug: 'parkingbay',
     name: 'ParkingBay',

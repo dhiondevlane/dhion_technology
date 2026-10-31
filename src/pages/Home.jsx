@@ -250,13 +250,65 @@ export default function Home() {
                         <p style={{ fontSize: '14px', color: '#aaa', margin: 0, lineHeight: '1.65' }}>
                           {solution.summary}
                         </p>
+                        {solution.slug === 'school-management' && (
+                          <Link
+                            to="/school-management"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              marginTop: '12px',
+                              color: '#FF6B4A',
+                              textDecoration: 'none',
+                              fontSize: '13px',
+                              fontWeight: '600',
+                            }}
+                          >
+                            Explore Plans &amp; Pricing →
+                          </Link>
+                        )}
+                        {solution.slug === 'parkingbay' && (
+                          <Link
+                            to="/parkingbay"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              marginTop: '12px',
+                              color: '#FF6B4A',
+                              textDecoration: 'none',
+                              fontSize: '13px',
+                              fontWeight: '600',
+                            }}
+                          >
+                            View ParkingBay Solution →
+                          </Link>
+                        )}
+                        {solution.slug === 'tandoor-hotel' && (
+                          <Link
+                            to="/homedelivery"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              marginTop: '12px',
+                              color: '#FF6B4A',
+                              textDecoration: 'none',
+                              fontSize: '13px',
+                              fontWeight: '600',
+                            }}
+                          >
+                            View Food Delivery Ecosystem →
+                          </Link>
+                        )}
                       </div>
 
                       <div className="solutions-accordion-img-wrapper">
                         <img 
                           src={
-                            i === 0 ? "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=400&q=80" : 
-                            i === 1 ? "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80" :
+                            solution.slug === 'school-management' ? "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&q=80" :
+                            solution.slug === 'parkingbay' ? "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=400&q=80" : 
+                            solution.slug === 'tandoor-hotel' ? "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80" :
                             "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80"
                           }
                           alt={solution.name}
