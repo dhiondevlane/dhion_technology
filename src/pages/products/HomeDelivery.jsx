@@ -41,7 +41,17 @@ export default function HomeDelivery() {
               </span>
             )}
             <h1 style={{ fontSize: '64px', fontWeight: '800', color: '#111', margin: '0 0 8px 0', letterSpacing: '-2px', lineHeight: '1.1' }}>
-              {solution.name}
+              <Link
+                to="/tandoorLogin"
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                Tandoor
+              </Link>{' '}
+              Hotel
             </h1>
             <p style={{ fontSize: '18px', color: '#555', lineHeight: '1.7', margin: '0 0 16px 0', maxWidth: '800px' }}>
               {solution.intro}
@@ -85,7 +95,17 @@ export default function HomeDelivery() {
             {/* Left Side: Header */}
             <div style={{ flex: '1', minWidth: '350px' }}>
               <h2 style={{ fontSize: '42px', fontWeight: '500', color: '#202124', marginBottom: '8px', letterSpacing: '-0.5px' }}>
-                {solution.name}
+                <Link
+                  to="/tandoorLogin"
+                  style={{
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Tandoor
+                </Link>{' '}
+                Hotel
               </h2>
               <div style={{ color: '#01875f', fontSize: '16px', fontWeight: '500', marginBottom: '24px' }}>
                 DevlaneCorp

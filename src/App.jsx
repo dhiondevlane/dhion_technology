@@ -11,6 +11,7 @@ import HomeDelivery from './pages/products/HomeDelivery'
 import SchoolManagement from './pages/products/SchoolManagement'
 import PrivacyPolicy from './pages/Privacy_Policy'
 import TermsService from './pages/Terms_Service'
+import TandoorPortal from './TandoorLogin/TandoorPortal'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -29,6 +30,11 @@ function App() {
     <>
       <ScrollToTop />
       <Routes>
+        {/* Tandoor Manager Portal Routes */}
+        <Route path="tandoorLogin" element={<TandoorPortal />} />
+        <Route path="tandoor-login" element={<TandoorPortal />} />
+        <Route path="tandoorLoging" element={<TandoorPortal />} />
+
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
