@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { company, nav } from '../data/content'
-import logoIcon from '../assets/logo-icon.png'
+import dhionLogo from '../assets/Dhion_Technologies_Logo.png'
 
 function NavItem({ item, onNavigate }) {
   const [open, setOpen] = useState(false)
@@ -115,13 +115,14 @@ function NavItem({ item, onNavigate }) {
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [navState, setNavState] = useState('top') // 'top' | 'scrolling-down' | 'scrolling-up'
   const navRef = useRef(null)
   const location = useLocation()
 
   // Close mobile nav when route changes
   useEffect(() => {
     setMobileOpen(false)
+    setNavState('top')
   }, [location.pathname, location.search, location.hash])
 
   // Close mobile nav on click outside, scroll, resize, or escape key
@@ -168,19 +169,55 @@ export default function Navbar() {
   }, [mobileOpen])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    let lastScrollY = Math.max(0, window.scrollY)
+
+    const handleScroll = () => {
+      const currentScrollY = Math.max(0, window.scrollY)
+
+      // When on top of screen: remove border line and blend seamlessly (all in one)
+      if (currentScrollY <= 15) {
+        setNavState('top')
+        lastScrollY = currentScrollY
+        return
+      }
+
+      const diff = currentScrollY - lastScrollY
+
+      // Scroll down: make it transparent ("transference")
+      if (diff > 6) {
+        setNavState('scrolling-down')
+        lastScrollY = currentScrollY
+      }
+      // Scroll up micro or slightly: keep AS IT NORMAL (frosted background with border line)
+      else if (diff <= -2) {
+        setNavState('scrolling-up')
+        lastScrollY = currentScrollY
+      }
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const getNavClasses = () => {
+    const classes = ['navbar']
+    if (mobileOpen) {
+      classes.push('scrolled', 'open')
+    } else if (navState === 'scrolling-down') {
+      classes.push('transparent')
+    } else if (navState === 'scrolling-up') {
+      classes.push('scrolled')
+    }
+    return classes.join(' ')
+  }
 
   return (
     <>
-      <header ref={navRef} className={`navbar${scrolled || mobileOpen ? ' scrolled' : ''}`}>
+      <header ref={navRef} className={getNavClasses()}>
         <div className="navbar-inner">
-          <NavLink to="/" className="brand" onClick={() => setMobileOpen(false)}>
-            <img src={logoIcon} alt="" className="brand-mark" />
-            {company.name}
+          <NavLink to="/" className="brand" onClick={() => setMobileOpen(false)} aria-label={company.name}>
+            <img src={dhionLogo} alt={company.name} className="brand-logo" />
           </NavLink>
 
           <button

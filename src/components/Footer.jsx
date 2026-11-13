@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { company, solutions } from '../data/content'
-import logoIcon from '../assets/logo-icon.png'
+import dhionLogoDark from '../assets/Dhion_Technologies_Logo_Dark.png'
 
 export default function Footer() {
   const [solutionsOpen, setSolutionsOpen] = useState(false)
@@ -15,9 +15,12 @@ export default function Footer() {
         {/* Links Section */}
         <div className="footer-links" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '48px', maxWidth: '900px', margin: '0 auto 80px auto' }}>
           <div className="footer-col footer-col-brand">
-            <Link to="/" className="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '24px' }}>
-              <img src={logoIcon} alt="Logo" style={{ height: '32px', width: 'auto' }} />
-              <span style={{ fontSize: '20px', fontWeight: 'bold', color: '#fff', letterSpacing: '-0.5px' }}>{company.name}</span>
+            <Link to="/" className="footer-logo" aria-label={company.name}>
+              <img 
+                src={dhionLogoDark} 
+                alt={company.name} 
+                className="footer-brand-logo"
+              />
             </Link>
             <ul className="footer-nav" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <li><Link to="/about" onMouseEnter={(e) => e.target.style.color = '#aa3bff'} onMouseLeave={(e) => e.target.style.color = '#aaa'} style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>About Us</Link></li>
