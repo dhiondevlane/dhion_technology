@@ -232,40 +232,6 @@ export const solutions = [
     ],
   },
   {
-    slug: 'trading',
-    name: 'Trading Solutions',
-    tagline: 'Build Your Own Trading Workflow',
-    summary:
-      'Customized technology solutions that connect market data, APIs, analytics, dashboards, and automated workflows into a single platform.',
-    intro:
-      'Trading applications often require more than simply displaying market prices. Dhion Technologies develops customized technology solutions that connect market data, APIs, analytics, dashboards, and automated workflows into a single platform.',
-    offerings: [
-      { name: 'Live Market Data', description: 'Access and process real-time market information.' },
-      {
-        name: 'Option Chain Analysis',
-        description: 'Build customized views for option-chain data and strike analysis.',
-      },
-      {
-        name: 'Trading Dashboards',
-        description: 'Monitor important market information through a centralized interface.',
-      },
-      {
-        name: 'API Integration',
-        description:
-          'Connect your application with supported brokers, market-data providers, and external services.',
-      },
-      {
-        name: 'Analytics & Decision Support',
-        description: 'Convert market information into useful data-driven insights.',
-      },
-      {
-        name: 'Custom Trading Tools',
-        description: 'Build workflows according to your specific requirements.',
-      },
-    ],
-    note: 'Technology for analysis and workflow — not financial advice.',
-  },
-  {
     slug: 'custom',
     name: 'Custom Business Solutions',
     tagline: "Don't See Exactly What You Need?",

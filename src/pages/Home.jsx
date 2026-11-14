@@ -172,7 +172,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" style={{ background: '#111', color: '#fff', padding: '40px 0', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <section className="section home-solutions-section">
         <div className="container">
           <div className="section-head center" style={{ marginBottom: '32px' }}>
             <span className="eyebrow" style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none', padding: '4px 12px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '12px' }}>

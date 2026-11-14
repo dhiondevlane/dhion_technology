@@ -222,12 +222,16 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="nav-toggle"
-            aria-label="Toggle navigation"
+            className={`nav-toggle ${mobileOpen ? 'open' : ''}`}
+            aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
           >
-            {mobileOpen ? '✕' : '☰'}
+            <span className="nav-toggle-box" aria-hidden="true">
+              <span className="nav-toggle-bar nav-toggle-bar-1" />
+              <span className="nav-toggle-bar nav-toggle-bar-2" />
+              <span className="nav-toggle-bar nav-toggle-bar-3" />
+            </span>
           </button>
 
           <ul className={`nav-links${mobileOpen ? ' open' : ''}`}>
